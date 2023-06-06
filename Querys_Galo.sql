@@ -22,3 +22,19 @@
            WHERE surveyID = 289
            AND us.end <= '2023-05-25 23:59:59'
            AND us.end IS NOT NULL;
+           
+
+
+
+
+-- Já essa query ela tras a mesma quantiadde de resultados porém 
+-- só com o CPF
+
+
+SELECT 
+u.userCode AS CPF,
+u.`end` 
+FROM user_survey u
+INNER JOIN surveys s ON s.SurveyID = u.surveyID 
+AND u.surveyID = 289
+AND u.end <= '2023-05-25 23:59:59';
