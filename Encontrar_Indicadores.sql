@@ -35,8 +35,14 @@ SELECT * FROM projects WHERE ProjectID = 137;
 SELECT * FROM indicators WHERE ProjId = 137 AND Description = "PLANO DE SAÚDE";
 
 
-
+-- Esse aqui eu fiz pro Galo baseado no indicador "Plano de Saude"
 SELECT REPLACE(`text`, 'otherText=', '') AS Texto, value AS Quantidade, perc AS Percentual
 FROM indicator_values
 WHERE IndID = 431 AND ProjId = 137
+ORDER BY value DESC;
+
+-- Esse aqui eu tbm fiz pro galo baseado no indicador "LOCAL ONDE GOSTARIA DE UMA LOJA OFICIAL"
+SELECT `text` AS Texto, value AS Quantidade
+FROM indicator_values
+WHERE IndID = 2105 AND ProjId = 137
 ORDER BY value DESC;
