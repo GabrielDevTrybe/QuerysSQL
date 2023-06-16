@@ -22,3 +22,39 @@ INNER JOIN identities i ON i.`Identity` = ifi.`Identity`
 LEFT JOIN user_survey_answer usa1 ON us.surveyUserID = usa1.surveyUserID AND usa1.questionId = 210
 LEFT JOIN user_survey_answer usa2 ON us.surveyUserID = usa2.surveyUserID AND usa2.questionId = 281
 WHERE us.surveyID = 406;
+
+
+
+
+-- Essa query eu fiz pra mostrar todas as perguntas do Owner 406. Onde eu tive que garantir
+-- que as pessoas pelo menos chegaram até a ultima pergunta. Quando elas chegam na ultima
+-- tem end, mas não quer dizer que concluiram. Elas só concluiram quando geram o ticket,
+-- então tive que conferir se elas tbm tem ticket. Fiz um if onde ele diz que no lugar de vir ticke NULL
+-- ele vem como não tem ticket, e os que tem vem como tem ticket
+
+
+  SELECT DISTINCT
+    CONCAT(i.Name1, ' ', IFNULL(i.Name2, '')) AS Nome,
+    usa1.answer AS Empresa,
+    usa2.answer AS Cargo,
+    usa3.answer AS Escolaridade,
+    us.userCode AS CPF,
+    usa4.answer AS Upload,
+    if (et.evt_tk_id > 0, "Tem Ticket", "Não tem Ticket") AS Tickets
+FROM
+    user_survey us
+LEFT JOIN
+    identity_FanId ifi ON ifi.`Identity` = us.ID
+INNER JOIN
+    identities i ON i.`Identity` = ifi.`Identity`
+LEFT JOIN
+    user_survey_answer usa1 ON us.surveyUserID = usa1.surveyUserID AND usa1.questionId = 210
+LEFT JOIN
+    user_survey_answer usa2 ON us.surveyUserID = usa2.surveyUserID AND usa2.questionId = 281
+LEFT JOIN
+    user_survey_answer usa3 ON us.surveyUserID = usa3.surveyUserID AND usa3.questionId = 202
+LEFT JOIN
+    user_survey_answer usa4 ON us.surveyUserID = usa4.surveyUserID AND usa4.questionId = 10007
+LEFT JOIN event_tickets et ON et.`identity` = ifi.`Identity` 
+WHERE
+    us.surveyID = 406 AND us.`end` IS NOT NULL AND currentReq = 3;
