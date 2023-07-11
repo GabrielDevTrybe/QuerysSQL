@@ -16,8 +16,7 @@ usa.answer AS CPF,
 usa2.answer AS País,
 usa3.answer  AS EstadoCivil,
 usa4.answer  AS TemFilho,
-usa5.answer  AS Renda,
-in4.`Number` AS SEMCPF
+usa5.answer  AS Renda
 FROM user_survey us 
 INNER JOIN user_survey_answer usa ON us.surveyUserID = usa.surveyUserID AND usa.questionId = 119
 INNER JOIN user_survey_answer usa2 ON usa2.surveyUserID = us.surveyUserID AND usa2.questionId = 106
@@ -29,7 +28,6 @@ INNER JOIN identity_FanId ifi ON ifi.`Identity` = us.ID
 INNER JOIN identities i ON i.`Identity` = ifi.`Identity` 
 LEFT JOIN identity_numbers in2 ON in2.`Identity` = ifi.`Identity` AND in2.NumberType = 4
 LEFT JOIN identity_numbers in3 ON in3.`Identity` = ifi.`Identity` AND in3.NumberType = 3
-LEFT JOIN identity_numbers in4 ON in4.`Identity` = ifi.`Identity` AND in4.NumberType = 1
 WHERE us.surveyID = 425 
 GROUP BY Nome;
 
