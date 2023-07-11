@@ -38,10 +38,12 @@ GROUP BY Nome;
 Como alguns CPFs estavam Nulos no identity Numbers, fizemos uma consulta
 para pegar os dados de CPF que vinham da pergunta 119 onde o Number
 da tabela identity_numbers estivessem como Nulos.
-Dai no Inserti Into entre parenteses tem os campos e eles foram passados no 
+Dai no Insert Into entre parenteses tem os campos e eles foram passados no 
 Select. Por eexemplo, no Insert Into o primeiro parametro é Identity
 e foi passado us.ID, ja no segundo parametro era NumberType e foi passasdo 1 que é o 
-NumberType de CPF e assim por diante.
+NumberType de CPF e assim por diante. Assim o CPF que vem da resposta de user_survey_answer
+com o numero da pergunta 119, foi inserido com a condição de que o Number do tipo um de 
+identity_numbers forem Null.
 */
 
 INSERT INTO fanbase_db.identity_numbers
