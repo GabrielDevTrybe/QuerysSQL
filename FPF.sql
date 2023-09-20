@@ -58,3 +58,29 @@ LEFT JOIN
 LEFT JOIN event_tickets et ON et.`identity` = ifi.`Identity` 
 WHERE
     us.surveyID = 406 AND us.`end` IS NOT NULL AND currentReq = 3;
+
+
+
+
+
+
+
+-- Essa query foi solicitada pelo SEBA para que fosse feita uma consulta
+-- para retornar a lista dos que foram ao evento 'FUT_FEM'.
+-- Pegamos esses caras por Event_invites pois ali ficavam todos os convidados
+-- e nssa tabela ja tinha email e nome.
+-- e garantimos que eles compareceram pelo accessDate
+
+SELECT 
+    ei.Name, 
+    ei.Email, 
+    ei.Identity, 
+    et.identity, 
+    et.accessDate  
+FROM 
+    Event_invites ei
+JOIN 
+    event_tickets et ON et.externalCode = ei.VoucherTK
+WHERE 
+    ei.EventCode = 'FUT_FEM'
+    AND et.accessDate IS NOT NULL;
